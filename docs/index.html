@@ -54,7 +54,14 @@
 
   /* Photo gallery */
   .photo-gallery { columns: 3; column-gap: .75rem; margin-top: 2.5rem; max-width: 960px; }
-  .photo-gallery img { width: 100%; display: block; border-radius: 12px; margin-bottom: .75rem; break-inside: avoid; }
+  .photo-gallery img { width: 100%; display: block; border-radius: 12px; margin-bottom: .75rem; break-inside: avoid; cursor: zoom-in; }
+
+  /* Lightbox */
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 2000; align-items: center; justify-content: center; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 8px; }
+  .lightbox-close { position: absolute; top: 1.25rem; right: 1.5rem; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; opacity: .6; line-height: 1; padding: .25rem; }
+  .lightbox-close:hover { opacity: 1; }
 
   /* Student card */
   .student-card { display: flex; align-items: flex-start; gap: 3rem; max-width: 900px; }
@@ -110,18 +117,18 @@
     <h2 class="section-title">Moments That Mattered</h2>
     <p class="lead" style="margin-top:.75rem;">From Lumen Field to T-Mobile Park — two days in Seattle that are hard to put into words, and impossible to forget.</p>
     <div class="photo-gallery">
-      <img src="img/events/gscg-mariners-presentation.jpeg" alt="GSCG x Mariners presentation">
-      <img src="img/events/panel-discussion.jpeg" alt="Mariners staff panel">
-      <img src="img/events/griffey-mural.jpeg" alt="Ken Griffey Jr. mural">
-      <img src="img/events/field-view.jpeg" alt="T-Mobile Park field view">
-      <img src="img/events/rooftop-meeting.jpeg" alt="Rooftop meeting with Seattle skyline">
-      <img src="img/events/on-the-field.jpeg" alt="On the field at T-Mobile Park">
-      <img src="img/events/outside-tmobile-park.jpeg" alt="Outside T-Mobile Park">
-      <img src="img/events/mariners-mascot.jpeg" alt="Mariners mascot">
-      <img src="img/events/dugout-visit.jpeg" alt="Dugout visit">
-      <img src="img/events/seats-selfie.jpeg" alt="In the seats">
-      <img src="img/events/field-level.jpeg" alt="Field level view">
-      <img src="img/events/at-the-game.jpeg" alt="At the game">
+      <img src="img/events/gscg-mariners-presentation.jpeg" alt="GSCG x Mariners presentation" onclick="openLightbox(this.src)">
+      <img src="img/events/panel-discussion.jpeg" alt="Mariners staff panel" onclick="openLightbox(this.src)">
+      <img src="img/events/griffey-mural.jpeg" alt="Ken Griffey Jr. mural" onclick="openLightbox(this.src)">
+      <img src="img/events/field-view.jpeg" alt="T-Mobile Park field view" onclick="openLightbox(this.src)">
+      <img src="img/events/rooftop-meeting.jpeg" alt="Rooftop meeting with Seattle skyline" onclick="openLightbox(this.src)">
+      <img src="img/events/on-the-field.jpeg" alt="On the field at T-Mobile Park" onclick="openLightbox(this.src)">
+      <img src="img/events/outside-tmobile-park.jpeg" alt="Outside T-Mobile Park" onclick="openLightbox(this.src)">
+      <img src="img/events/mariners-mascot.jpeg" alt="Mariners mascot" onclick="openLightbox(this.src)">
+      <img src="img/events/dugout-visit.jpeg" alt="Dugout visit" onclick="openLightbox(this.src)">
+      <img src="img/events/seats-selfie.jpeg" alt="In the seats" onclick="openLightbox(this.src)">
+      <img src="img/events/field-level.jpeg" alt="Field level view" onclick="openLightbox(this.src)">
+      <img src="img/events/at-the-game.jpeg" alt="At the game" onclick="openLightbox(this.src)">
     </div>
   </div>
 </section>
@@ -313,7 +320,24 @@
   </div>
 </section>
 
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&#10005;</button>
+  <img src="" alt="Photo">
+</div>
+
 <script>
+  function openLightbox(src) {
+    document.querySelector('#lightbox img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+
   const sections = document.querySelectorAll('.slide');
   const nav = document.getElementById('nav');
   sections.forEach((s, i) => {
