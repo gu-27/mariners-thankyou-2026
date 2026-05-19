@@ -49,34 +49,27 @@
     padding-left: 1.25rem; color: rgba(255,255,255,.88);
     margin: 1.5rem 0;
   }
-  .bg-white .pull-quote, .bg-accent .pull-quote { border-left-color: var(--red); color: #3a4556; }
+  .bg-accent .pull-quote { border-left-color: var(--red); color: #3a4556; }
   .quote-attr { font-family: 'Outfit', sans-serif; font-size: .78rem; font-style: normal; font-weight: 600; letter-spacing: .05em; opacity: .55; margin-top: .5rem; }
 
   /* Photo grid */
-  .photo-grid { display: grid; grid-template-columns: 2fr 1fr; gap: .75rem; margin-top: 2.5rem; max-width: 900px; }
-  .photo-stack { display: flex; flex-direction: column; gap: .75rem; }
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; gap: .75rem; margin-top: 2.5rem; max-width: 900px; }
   .photo-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; display: block; }
-  .photo-main { height: 420px; }
-  .photo-sub  { height: 202px; }
+  .photo-wide { grid-column: span 2; }
 
   /* Student card */
   .student-card { display: flex; align-items: flex-start; gap: 3rem; max-width: 900px; }
   .headshot { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid rgba(255,255,255,.15); }
+  .headshot.on-accent { border-color: var(--border); }
   .student-name { font-family: 'Libre Baskerville', serif; font-size: 1.6rem; font-style: italic; margin-bottom: .2rem; }
+  .bg-accent .student-name { color: var(--navy); }
   .student-meta { font-size: .8rem; font-weight: 500; letter-spacing: .04em; opacity: .5; margin-bottom: 1.5rem; }
   .student-divider { border: none; border-top: 1px solid rgba(255,255,255,.08); margin: 0; }
+  .student-divider.light { border-top-color: var(--border); }
 
-  /* Principle grid */
-  .principle-section { margin-bottom: 3.5rem; }
-  .principle-label { font-size: .6rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--red); margin-bottom: .5rem; display: block; }
-  .principle-title { font-family: 'Libre Baskerville', serif; font-size: 1.4rem; font-style: italic; margin-bottom: 1.25rem; color: var(--navy); }
-  .principle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1rem; }
-  .p-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.4rem; }
-  .p-card-head { display: flex; align-items: center; gap: .85rem; margin-bottom: 1rem; }
-  .p-card-headshot { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
-  .p-card-name { font-weight: 600; font-size: .9rem; color: var(--navy); }
-  .p-card-meta { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
-  .p-quote { font-family: 'Libre Baskerville', serif; font-size: .87rem; font-style: italic; line-height: 1.7; color: #3a4556; }
+  /* Principles list in hero */
+  .principles-list { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 2rem; list-style: none; }
+  .principles-list li { font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.35); padding-left: .75rem; border-left: 2px solid var(--red); }
 
   /* Closing */
   .closing-rule { width: 48px; height: 3px; background: var(--red); margin-bottom: 2rem; border-radius: 2px; }
@@ -86,8 +79,10 @@
     .slide-inner { padding: 5rem 1.5rem; }
     .student-card { flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
     .pull-quote { border-left: none; border-top: 3px solid rgba(255,255,255,.3); padding-left: 0; padding-top: 1rem; }
+    .bg-accent .pull-quote { border-top-color: var(--red); }
     .photo-grid { grid-template-columns: 1fr; }
     .photo-main, .photo-sub { height: 260px; }
+    .principles-list { flex-direction: column; gap: .5rem; }
   }
 </style>
 </head>
@@ -100,7 +95,13 @@
   <div class="slide-inner">
     <span class="eyebrow">Gonzaga Sports Consulting Group &nbsp;·&nbsp; Seattle, WA &nbsp;·&nbsp; Spring 2026</span>
     <h1 class="display">Thank You,<br>Seattle Mariners.</h1>
-    <p class="lead" style="margin-top:1.75rem;">Seven students spent a semester immersed in your organization — your data, your strategy, your challenge. They came to T-Mobile Park to present what they found, and what they found in return was a team that took them seriously. This page is their way of saying thank you for that.</p>
+    <p class="lead" style="margin-top:1.75rem;">Seven students spent a semester immersed in your organization — your data, your strategy, your challenge. They came to T-Mobile Park to present what they found, and what they found in return was a team that took them seriously. GSCG is built on four principles — commit to growth, support each other, do hard things, and have fun — and your team helped every one of them come to life.</p>
+    <ul class="principles-list">
+      <li>Commit to growth through GSCG</li>
+      <li>Support each other's growth</li>
+      <li>Do hard things</li>
+      <li>Have fun</li>
+    </ul>
   </div>
 </section>
 
@@ -111,117 +112,108 @@
     <h2 class="section-title">Moments That Mattered</h2>
     <p class="lead" style="margin-top:.75rem;">From Lumen Field to T-Mobile Park — two days in Seattle that are hard to put into words, and impossible to forget.</p>
     <div class="photo-grid">
-      <div>
-        <img class="photo-main" src="https://gu-27.github.io/gscg-photos/photos/Mariners/IMG_6073.jpg" alt="Mariners presentation">
-      </div>
-      <div class="photo-stack">
-        <img class="photo-sub" src="https://gu-27.github.io/gscg-photos/photos/Lumens/IMG_5938.jpg" alt="Lumen Field">
-        <img class="photo-sub" src="https://gu-27.github.io/gscg-photos/photos/Mariners/IMG_6086.jpg" alt="T-Mobile Park">
-      </div>
+      <img class="photo-wide" src="img/events/IMG_6125.jpeg" alt="T-Mobile Park field view">
+      <img src="img/events/IMG_6161.jpeg" alt="GSCG at the game">
+      <img src="img/events/IMG_6066.jpeg" alt="Rooftop meeting with Seattle skyline">
+      <img class="photo-wide" src="img/events/IMG_6080.jpeg" alt="Mariners mascot moment">
     </div>
   </div>
 </section>
 
-<!-- S3: PRINCIPLES -->
+<!-- S3: TAKEAWAYS -->
 <section class="slide bg-accent" id="s3">
   <div class="slide-inner">
-    <span class="eyebrow">Who We Are</span>
-    <h2 class="section-title" style="margin-bottom:2.5rem;">The Principles Behind the Work</h2>
-    <p class="lead" style="margin-bottom:3rem;">GSCG is built on four commitments that guide how members approach every project, every presentation, and every relationship. The Seattle experience brought all four to life.</p>
+    <span class="eyebrow">Student Reflections</span>
+    <h2 class="section-title" style="margin-bottom:.5rem;">What They Discovered</h2>
+    <p class="lead" style="margin-bottom:3.5rem;">After the visit, each student reflected on their key takeaways from the Mariners — connecting the experience back to their own growth.</p>
 
-    <div class="principle-section">
-      <span class="principle-label">Principle 01</span>
-      <div class="principle-title">Commit to growth through GSCG</div>
-      <div class="principle-grid">
-        <div class="p-card">
-          <div class="p-card-head">
-            <img class="p-card-headshot" src="img/headshots/paige-olson.jpeg" alt="Paige Olson">
-            <div><div class="p-card-name">Paige Olson</div><div class="p-card-meta">Senior · Marketing & Finance · Project Manager</div></div>
-          </div>
-          <p class="p-quote">"Visiting the Mariners reinforced the principles we strive to live out through GSCG. This experience truly allowed me to grow in ways I didn't anticipate."</p>
-        </div>
-        <div class="p-card">
-          <div class="p-card-head">
-            <img class="p-card-headshot" src="img/headshots/marcus-heppner.jpeg" alt="Marcus Heppner">
-            <div><div class="p-card-name">Marcus Heppner</div><div class="p-card-meta">Freshman · Business Admin & Sports Management · Consultant</div></div>
-          </div>
-          <p class="p-quote">"This visit showed me how beneficial it is to approach new challenges with a willingness to learn — and that failure in the workspace can be a testament to growth and the ability to adapt."</p>
+    <div style="display:flex;flex-direction:column;gap:3.5rem;">
+
+      <div class="student-card">
+        <img class="headshot on-accent" src="img/headshots/paige-olson.jpeg" alt="Paige Olson">
+        <div>
+          <div class="student-name">Paige Olson</div>
+          <div class="student-meta">Senior · Marketing & Finance · Portland, OR · Project Manager</div>
+          <div class="pull-quote">"Presenting to a team of professionals, receiving real-time feedback, and engaging across departments pushed me to think more critically and communicate more intentionally. It challenged me to take ownership of my learning in a much deeper way. Your perspective — that failure is not something to avoid, but something to embrace — reframed how I think about challenges entirely."</div>
         </div>
       </div>
-    </div>
 
-    <div class="principle-section">
-      <span class="principle-label">Principle 02</span>
-      <div class="principle-title">Support each other's growth</div>
-      <div class="principle-grid">
-        <div class="p-card">
-          <div class="p-card-head">
-            <img class="p-card-headshot" src="img/headshots/eamon-mohrbacher.jpeg" alt="Eamon Mohrbacher">
-            <div><div class="p-card-name">Eamon Mohrbacher</div><div class="p-card-meta">Sophomore · Finance & Accounting · Consultant</div></div>
-          </div>
-          <p class="p-quote">"Your job will be significantly better if you create a community with people you enjoy being around. Clear communication through the good and the bad is key."</p>
-        </div>
-        <div class="p-card">
-          <div class="p-card-head">
-            <img class="p-card-headshot" src="img/headshots/allison-kann.jpeg" alt="Allison Kann">
-            <div><div class="p-card-name">Allison Kann</div><div class="p-card-meta">Sophomore · Marketing · Consultant</div></div>
-          </div>
-          <p class="p-quote">"Thank you for everything you have done for us — before, during, and after our presentation. You had such an infectious energy that made every moment of this experience memorable."</p>
+      <hr class="student-divider light">
+
+      <div class="student-card">
+        <img class="headshot on-accent" src="img/headshots/owen-hyatt.jpeg" alt="Owen Hyatt">
+        <div>
+          <div class="student-name">Owen Hyatt</div>
+          <div class="student-meta">Sophomore · Accounting & Finance · Sammamish, WA · Director</div>
+          <div class="pull-quote">"Working in sports is pretty darn cool, but it is not all sunshine and rainbows. From hearing about amazing experiences with the Mariners to the individual struggles and journeys to get there — it was eye opening. Getting both sides of that story gave a much more honest and robust perspective than I expected."</div>
         </div>
       </div>
-    </div>
 
-    <div class="principle-section">
-      <span class="principle-label">Principle 03</span>
-      <div class="principle-title">Do hard things</div>
-      <div class="principle-grid">
-        <div class="p-card">
-          <div class="p-card-head">
-            <img class="p-card-headshot" src="img/headshots/charlie-herman.png" alt="Charles Herman">
-            <div><div class="p-card-name">Charles Herman</div><div class="p-card-meta">Senior · Accounting, Finance & MIS · Director</div></div>
-          </div>
-          <p class="p-quote">"The best jobs are often the ones that challenge you. It was clear from every person we interacted with that the challenge was what made their work meaningful."</p>
-        </div>
-        <div class="p-card">
-          <div class="p-card-head">
-            <img class="p-card-headshot" src="img/headshots/samantha-smith.jpeg" alt="Samantha Smith" style="object-position:85% 20%">
-            <div><div class="p-card-name">Samantha Smith</div><div class="p-card-meta">Sophomore · Accounting, Ops & Supply Chain · Consultant</div></div>
-          </div>
-          <p class="p-quote">"I loved when Brier said he had to learn through 'trial by fire.' It reminded me that discomfort is not a sign you're doing something wrong — it's a sign you're growing."</p>
+      <hr class="student-divider light">
+
+      <div class="student-card">
+        <img class="headshot on-accent" src="img/headshots/charlie-herman.png" alt="Charles Herman" style="object-position:center top">
+        <div>
+          <div class="student-name">Charles Herman</div>
+          <div class="student-meta">Senior · Accounting, Finance & MIS · Tamarindo, Costa Rica · Director</div>
+          <div class="pull-quote">"The best jobs are often the ones that challenge you. It was clear from each person we interacted with that they had a deep passion for what they did — but each of them also talked about the challenges they face. Seeing how being challenged pushes you to do great things and be the best version of yourself was something I will carry forward."</div>
         </div>
       </div>
-    </div>
 
-    <div class="principle-section" style="margin-bottom:0;">
-      <span class="principle-label">Principle 04</span>
-      <div class="principle-title">Have fun</div>
-      <div class="principle-grid">
-        <div class="p-card">
-          <div class="p-card-head">
-            <img class="p-card-headshot" src="img/headshots/owen-hyatt.jpeg" alt="Owen Hyatt">
-            <div><div class="p-card-name">Owen Hyatt</div><div class="p-card-meta">Sophomore · Accounting & Finance · Director</div></div>
-          </div>
-          <p class="p-quote">"Working in sports is pretty darn cool, but it is not all sunshine and rainbows. The honest perspective from everyone we met made it feel real — and made me want it even more."</p>
-        </div>
-        <div class="p-card">
-          <div class="p-card-head">
-            <img class="p-card-headshot" src="img/headshots/marcus-heppner.jpeg" alt="Marcus Heppner">
-            <div><div class="p-card-name">Marcus Heppner</div><div class="p-card-meta">Freshman · Business Admin & Sports Management · Consultant</div></div>
-          </div>
-          <p class="p-quote">"Thank you Frances, Brooke, and the rest of the Mariners team for your feedback and support. And thanks again for accommodating our team at T-Mobile Park — it was a career and life-defining experience for my teammates and I."</p>
+      <hr class="student-divider light">
+
+      <div class="student-card">
+        <img class="headshot on-accent" src="img/headshots/samantha-smith.jpeg" alt="Samantha Smith" style="object-position:85% 20%">
+        <div>
+          <div class="student-name">Samantha Smith</div>
+          <div class="student-meta">Sophomore · Accounting, Ops & Supply Chain · Normandy Park, WA · Consultant</div>
+          <div class="pull-quote">"I loved when Brier said he had to learn through 'trial by fire' — he always said yes, even if he had no idea how to do something, and learned it. Frances was quick to say that more than 75% of the work is a challenge, and that she highlights failures rather than successes because without failure there is no growth. Sports is about creating experiences, and seeing that passion from everyone in the room made it feel like something worth working toward."</div>
         </div>
       </div>
-    </div>
 
+      <hr class="student-divider light">
+
+      <div class="student-card">
+        <img class="headshot on-accent" src="img/headshots/eamon-mohrbacher.jpeg" alt="Eamon Mohrbacher">
+        <div>
+          <div class="student-name">Eamon Mohrbacher</div>
+          <div class="student-meta">Sophomore · Finance & Accounting · Seattle, WA · Consultant</div>
+          <div class="pull-quote">"Your job will be significantly better if you create a community with people you enjoy being around. Clear communication through the good and the bad is key — and finding ways to take a step back and regroup when things get challenging is just as important as pushing through."</div>
+        </div>
+      </div>
+
+      <hr class="student-divider light">
+
+      <div class="student-card">
+        <img class="headshot on-accent" src="img/headshots/marcus-heppner.jpeg" alt="Marcus Heppner">
+        <div>
+          <div class="student-name">Marcus Heppner</div>
+          <div class="student-meta">Freshman · Business Admin & Sports Management · San Diego, CA · Consultant</div>
+          <div class="pull-quote">"This visit showed me how beneficial it is to approach new challenges with a willingness to learn — and that failure in the workspace can be a testament to growth and the ability to adapt. It is still important to find outlets during challenging times to stay grounded in who you are as a person."</div>
+        </div>
+      </div>
+
+      <hr class="student-divider light">
+
+      <div class="student-card">
+        <img class="headshot on-accent" src="img/headshots/allison-kann.jpeg" alt="Allison Kann">
+        <div>
+          <div class="student-name">Allison Kann</div>
+          <div class="student-meta">Sophomore · Marketing · Carlsbad, CA · Consultant</div>
+          <div class="pull-quote">"My two favorite pieces of advice from the panel: when you are faced with a problem, 'figure it out' by leaning into it and leaning into others. And set yourself apart by focusing on the little things — remembering names, following up, fostering connections. Those two ideas alone changed how I think about entering a professional environment."</div>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
-<!-- S4: STUDENT REFLECTIONS -->
+<!-- S4: MESSAGES -->
 <section class="slide bg-navy" id="s4">
   <div class="slide-inner">
-    <span class="eyebrow">Student Reflections</span>
-    <h2 class="section-title" style="margin-bottom:.5rem;">In Their Own Words</h2>
-    <p class="lead" style="margin-bottom:3.5rem;">Seven students. One semester. One organization. Here is what they took away from the experience.</p>
+    <span class="eyebrow">From the Team</span>
+    <h2 class="section-title" style="margin-bottom:.5rem;">What They Want You to Know</h2>
+    <p class="lead" style="margin-bottom:3.5rem;">Each student also shared a personal message directly to the Mariners team — here is what they said.</p>
 
     <div style="display:flex;flex-direction:column;gap:3.5rem;">
 
@@ -230,9 +222,7 @@
         <div>
           <div class="student-name">Paige Olson</div>
           <div class="student-meta">Senior · Marketing & Finance · Portland, OR · Project Manager</div>
-          <div class="pull-quote">"Visiting the Mariners reinforced the principles we strive to live out through GSCG. This experience truly allowed me to grow in ways I didn't anticipate."
-            <div class="quote-attr">Mariners Visit Reflection</div>
-          </div>
+          <div class="pull-quote">"Thank you for investing in us and creating an environment where we could learn, grow, and challenge ourselves. Hearing how you approach challenges, growth, and even failure gave me a mindset I will carry forward. This is an experience I will carry with me for the rest of my career."</div>
         </div>
       </div>
 
@@ -243,9 +233,7 @@
         <div>
           <div class="student-name">Owen Hyatt</div>
           <div class="student-meta">Sophomore · Accounting & Finance · Sammamish, WA · Director</div>
-          <div class="pull-quote">"Working in sports is pretty darn cool, but it is not all sunshine and rainbows. The honest perspective from everyone we met made it feel real — and made me want it even more."
-            <div class="quote-attr">Mariners Visit Reflection</div>
-          </div>
+          <div class="pull-quote">"Thank you for taking the time to welcome us — the batting practice, dugout photoshoot, and game were incredible. But more than that, the professional conversations with Brooke, Tim, Frances, Jaron, Amanda, Liz, and others were something I truly appreciated. Hearing your unique perspectives and journeys is something I will not forget."</div>
         </div>
       </div>
 
@@ -256,9 +244,7 @@
         <div>
           <div class="student-name">Charles Herman</div>
           <div class="student-meta">Senior · Accounting, Finance & MIS · Tamarindo, Costa Rica · Director</div>
-          <div class="pull-quote">"The best jobs are often the ones that challenge you. It was clear from every person we interacted with that the challenge was what made their work meaningful."
-            <div class="quote-attr">Mariners Visit Reflection</div>
-          </div>
+          <div class="pull-quote">"Thank you for sharing your time, space, and insight with us. Your genuine engagement and openness left a large impact on me. As I move into my professional career filled with questions, it was a privilege to hear your stories and gain insights I will carry for the rest of my career."</div>
         </div>
       </div>
 
@@ -269,9 +255,7 @@
         <div>
           <div class="student-name">Samantha Smith</div>
           <div class="student-meta">Sophomore · Accounting, Ops & Supply Chain · Normandy Park, WA · Consultant</div>
-          <div class="pull-quote">"I loved when Brier said he had to learn through 'trial by fire.' It reminded me that discomfort is not a sign you're doing something wrong — it's a sign you're growing."
-            <div class="quote-attr">Mariners Visit Reflection</div>
-          </div>
+          <div class="pull-quote">"Frances, Brooke, and the whole Mariners team — thank you for taking time out of your busy schedules to give us a tour, host an incredible panel, and listen to the project we have been working on. I loved observing your thriving work culture of amazing people who genuinely care. I am looking forward to staying in touch."</div>
         </div>
       </div>
 
@@ -282,9 +266,7 @@
         <div>
           <div class="student-name">Eamon Mohrbacher</div>
           <div class="student-meta">Sophomore · Finance & Accounting · Seattle, WA · Consultant</div>
-          <div class="pull-quote">"Your job will be significantly better if you create a community with people you enjoy being around. Clear communication through the good and the bad is key."
-            <div class="quote-attr">Mariners Visit Reflection</div>
-          </div>
+          <div class="pull-quote">"Thank you for all of the effort you put into making this such an incredible experience. I really enjoyed working on this project, learned a lot, and am grateful for the opportunity to present and grow as a person."</div>
         </div>
       </div>
 
@@ -295,12 +277,7 @@
         <div>
           <div class="student-name">Marcus Heppner</div>
           <div class="student-meta">Freshman · Business Admin & Sports Management · San Diego, CA · Consultant</div>
-          <div class="pull-quote">"This visit showed me how beneficial it is to approach new challenges with a willingness to learn — and that failure in the workspace can be a testament to growth and the ability to adapt."
-            <div class="quote-attr">Mariners Visit Reflection</div>
-          </div>
-          <div class="pull-quote" style="margin-top:.5rem;">"Thank you Frances, Brooke, and the rest of the Mariners team for your feedback and support during both the semester and our presentations. It was a career and life-defining experience for my teammates and I."
-            <div class="quote-attr">Message to the Mariners Team</div>
-          </div>
+          <div class="pull-quote">"Thank you for putting in the time to give us insights into your career paths and provide feedback on our work from the past semester. Your investment in our growth has inspired me to both pursue new challenges and support the growth of my peers."</div>
         </div>
       </div>
 
@@ -311,9 +288,7 @@
         <div>
           <div class="student-name">Allison Kann</div>
           <div class="student-meta">Sophomore · Marketing · Carlsbad, CA · Consultant</div>
-          <div class="pull-quote">"Thank you for everything you have done for us — before, during, and after our presentation. You had such an infectious energy that made every moment of this experience memorable."
-            <div class="quote-attr">Mariners Visit Reflection</div>
-          </div>
+          <div class="pull-quote">"Thank you for everything you have done for us — before, during, and after our presentation. You are a fabulous team to work with and had such an immense amount of knowledge to share. I truly appreciate the time, effort, and resources that went into hosting us."</div>
         </div>
       </div>
 
