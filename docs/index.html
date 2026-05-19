@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You, Seattle Mariners — GSCG 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: #041E42; color: white; overflow-x: hidden; }
+
+  :root {
+    --navy:   #041E42;
+    --red:    #C8102E;
+    --accent: #e8edf5;
+    --border: #dde3ec;
+    --muted:  #6b7a8d;
+  }
+
+  .bg-navy   { background: var(--navy); color: white; }
+  .bg-red    { background: var(--red);  color: white; }
+  .bg-white  { background: white;       color: var(--navy); }
+  .bg-accent { background: var(--accent); color: var(--navy); }
+
+  .slide { min-height: 100vh; position: relative; display: flex; align-items: center; }
+  .slide-inner { width: 100%; max-width: 1100px; margin: 0 auto; padding: 7rem 4rem; }
+
+  .fixed-nav { position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: .5rem; z-index: 100; }
+  .nav-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.3); border: none; cursor: pointer; transition: all .2s; padding: 0; }
+  .nav-dot.active { background: var(--red); transform: scale(1.3); }
+  .nav-dot.dark { background: rgba(4,30,66,.25); }
+  .nav-dot.dark.active { background: var(--red); }
+
+  .eyebrow { font-size: .6rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--red); margin-bottom: 1.1rem; display: block; }
+  .bg-red .eyebrow, .bg-navy .eyebrow { color: rgba(255,255,255,.55); }
+
+  h1.display { font-family: 'Libre Baskerville', serif; font-size: clamp(2.8rem, 5.5vw, 5rem); line-height: 1.1; font-style: italic; }
+  h2.section-title { font-family: 'Libre Baskerville', serif; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.15; }
+
+  .lead { font-size: 1.05rem; font-weight: 300; line-height: 1.8; max-width: 640px; }
+  .bg-navy .lead, .bg-red .lead { color: rgba(255,255,255,.72); }
+  .bg-white .lead, .bg-accent .lead { color: var(--muted); }
+
+  .pull-quote {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.08rem; font-style: italic; line-height: 1.78;
+    border-left: 3px solid rgba(255,255,255,.3);
+    padding-left: 1.25rem; color: rgba(255,255,255,.88);
+    margin: 1.5rem 0;
+  }
+  .bg-white .pull-quote, .bg-accent .pull-quote { border-left-color: var(--red); color: #3a4556; }
+  .quote-attr { font-family: 'Outfit', sans-serif; font-size: .78rem; font-style: normal; font-weight: 600; letter-spacing: .05em; opacity: .55; margin-top: .5rem; }
+
+  /* Photo grid */
+  .photo-grid { display: grid; grid-template-columns: 2fr 1fr; gap: .75rem; margin-top: 2.5rem; max-width: 900px; }
+  .photo-stack { display: flex; flex-direction: column; gap: .75rem; }
+  .photo-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; display: block; }
+  .photo-main { height: 420px; }
+  .photo-sub  { height: 202px; }
+
+  /* Student card */
+  .student-card { display: flex; align-items: flex-start; gap: 3rem; max-width: 900px; }
+  .headshot { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 3px solid rgba(255,255,255,.15); background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; }
+  .headshot-initials { font-family: 'Libre Baskerville', serif; font-size: 3rem; font-style: italic; color: rgba(255,255,255,.4); }
+  .bg-white .headshot, .bg-accent .headshot { border-color: var(--border); }
+  .student-name { font-family: 'Libre Baskerville', serif; font-size: 1.6rem; font-style: italic; margin-bottom: .2rem; }
+  .student-meta { font-size: .8rem; font-weight: 500; letter-spacing: .04em; opacity: .5; margin-bottom: 1.5rem; }
+  .student-divider { border: none; border-top: 1px solid rgba(255,255,255,.08); margin: 0; }
+
+  /* Placeholder headshot circle */
+  .headshot-placeholder {
+    width: 180px; height: 180px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(255,255,255,.08); border: 3px solid rgba(255,255,255,.15);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Libre Baskerville', serif; font-size: 2.2rem; font-style: italic;
+    color: rgba(255,255,255,.35);
+  }
+
+  /* Mini card */
+  .mini-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+  .mini-card {
+    display: flex; align-items: center; gap: 1rem;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 12px; padding: 1rem 1.25rem; flex: 1; min-width: 240px;
+  }
+  .mini-placeholder {
+    width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(255,255,255,.1); border: 2px solid rgba(255,255,255,.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .95rem; font-style: italic; font-family: 'Libre Baskerville', serif;
+    color: rgba(255,255,255,.35);
+  }
+  .mini-name { font-weight: 600; font-size: .95rem; }
+  .mini-sub { font-size: .75rem; opacity: .5; margin-top: .1rem; }
+
+  /* Principle grid */
+  .principle-section { margin-bottom: 3.5rem; }
+  .principle-label { font-size: .6rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--red); margin-bottom: .5rem; display: block; }
+  .principle-title { font-family: 'Libre Baskerville', serif; font-size: 1.4rem; font-style: italic; margin-bottom: 1.25rem; color: var(--navy); }
+  .principle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1rem; }
+  .p-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.4rem; }
+  .p-card-head { display: flex; align-items: center; gap: .85rem; margin-bottom: 1rem; }
+  .p-placeholder { width: 52px; height: 52px; border-radius: 50%; border: 2px solid var(--border); background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: .85rem; font-style: italic; font-family: 'Libre Baskerville', serif; color: var(--muted); flex-shrink: 0; }
+  .p-card-name { font-weight: 600; font-size: .9rem; color: var(--navy); }
+  .p-card-meta { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+  .p-quote { font-family: 'Libre Baskerville', serif; font-size: .87rem; font-style: italic; line-height: 1.7; color: #3a4556; }
+
+  /* Closing */
+  .closing-rule { width: 48px; height: 3px; background: var(--red); margin-bottom: 2rem; border-radius: 2px; }
+  .closing-footer { font-size: .75rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; opacity: .35; margin-top: 3rem; }
+
+  @media (max-width: 700px) {
+    .slide-inner { padding: 5rem 1.5rem; }
+    .student-card { flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
+    .pull-quote { border-left: none; border-top: 3px solid rgba(255,255,255,.3); padding-left: 0; padding-top: 1rem; }
+    .photo-grid { grid-template-columns: 1fr; }
+    .photo-main, .photo-sub { height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="fixed-nav" id="nav" aria-label="Page sections"></nav>
+
+<!-- S1: HERO -->
+<section class="slide bg-navy" id="s1">
+  <div class="slide-inner">
+    <span class="eyebrow">Gonzaga Sports Consulting Group &nbsp;·&nbsp; Seattle, WA &nbsp;·&nbsp; Spring 2026</span>
+    <h1 class="display">Thank You,<br>Seattle Mariners.</h1>
+    <p class="lead" style="margin-top:1.75rem;">Seven students spent a semester immersed in your organization — your data, your strategy, your challenge. They came to T-Mobile Park to present what they found, and what they found in return was a team that took them seriously. This page is their way of saying thank you for that.</p>
+  </div>
+</section>
+
+<!-- S2: PHOTOS -->
+<section class="slide bg-white" id="s2">
+  <div class="slide-inner">
+    <span class="eyebrow">The Experience</span>
+    <h2 class="section-title">Moments That Mattered</h2>
+    <p class="lead" style="margin-top:.75rem;">From Lumen Field to T-Mobile Park — two days in Seattle that are hard to put into words, and impossible to forget.</p>
+    <div class="photo-grid">
+      <div>
+        <img class="photo-main" src="https://gu-27.github.io/gscg-photos/photos/Mariners/IMG_6073.jpg" alt="Mariners presentation">
+      </div>
+      <div class="photo-stack">
+        <img class="photo-sub" src="https://gu-27.github.io/gscg-photos/photos/Lumens/IMG_5938.jpg" alt="Lumen Field">
+        <img class="photo-sub" src="https://gu-27.github.io/gscg-photos/photos/Mariners/IMG_6086.jpg" alt="T-Mobile Park">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S3: PRINCIPLES -->
+<section class="slide bg-accent" id="s3">
+  <div class="slide-inner">
+    <span class="eyebrow">Who We Are</span>
+    <h2 class="section-title" style="margin-bottom:2.5rem;">The Principles Behind the Work</h2>
+    <p class="lead" style="margin-bottom:3rem;">GSCG is built on four commitments that guide how members approach every project, every presentation, and every relationship. The Seattle trip was a chance to live all four of them under real pressure.</p>
+
+    <div class="principle-section">
+      <span class="principle-label">Principle 01</span>
+      <div class="principle-title">Commit to growth through GSCG</div>
+      <div class="principle-grid">
+        <div class="p-card">
+          <div class="p-card-head">
+            <div class="p-placeholder">MH</div>
+            <div><div class="p-card-name">Marcus Heppner</div><div class="p-card-meta">Consultant · Mariners Project</div></div>
+          </div>
+          <p class="p-quote">"This semester has made me feel significantly more open to growing through failure, and not strictly aiming to impress or expect perfection in every trial. I am a lot more open to learning through challenges."</p>
+        </div>
+        <div class="p-card">
+          <div class="p-card-head">
+            <div class="p-placeholder">KB</div>
+            <div><div class="p-card-name">Kenzie Bushnell</div><div class="p-card-meta">Consultant · Mariners Project</div></div>
+          </div>
+          <p class="p-quote">"This was my first time researching on a topic for a long period of time, so growing my research skills has been huge. I was able to confidently give a presentation about sports analytics — something I had no prior knowledge of at the start of the semester."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-section">
+      <span class="principle-label">Principle 02</span>
+      <div class="principle-title">Support each other's growth</div>
+      <div class="principle-grid">
+        <div class="p-card">
+          <div class="p-card-head">
+            <div class="p-placeholder">SS</div>
+            <div><div class="p-card-name">Samantha Smith</div><div class="p-card-meta">Consultant · Mariners Project</div></div>
+          </div>
+          <p class="p-quote">"One takeaway from this semester is the importance of your network and helping one another grow. It was so awesome to see and hear stories about professionals and how they used their network to continue learning."</p>
+        </div>
+        <div class="p-card">
+          <div class="p-card-head">
+            <div class="p-placeholder">TB</div>
+            <div><div class="p-card-name">Thomas Banzhof</div><div class="p-card-meta">Consultant · Mariners Project</div></div>
+          </div>
+          <p class="p-quote">"When times are tough, lean on your team. When we critique each other's ideas, they are better. When we listen to feedback from others, we are better."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-section">
+      <span class="principle-label">Principle 03</span>
+      <div class="principle-title">Do hard things</div>
+      <div class="principle-grid">
+        <div class="p-card">
+          <div class="p-card-head">
+            <div class="p-placeholder">TB</div>
+            <div><div class="p-card-name">Thomas Banzhof</div><div class="p-card-meta">Consultant · Mariners Project</div></div>
+          </div>
+          <p class="p-quote">"This project threw me into the deep end. I worked on the same spreadsheet for weeks without completely understanding why. Then, in the last couple of weeks, it all came together. I'm proud of how I kept getting my work done and trusting the process, even after we got crushed at the midpoint."</p>
+        </div>
+        <div class="p-card">
+          <div class="p-card-head">
+            <div class="p-placeholder">CA</div>
+            <div><div class="p-card-name">Cameron Ames</div><div class="p-card-meta">Consultant · Mariners Project</div></div>
+          </div>
+          <p class="p-quote">"One of my biggest takeaways was learning not only how to find meaningful information but also how to present it in a clear and powerful way. It's important to know your stuff, but you also have to be able to talk about it and express why it matters."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="principle-section" style="margin-bottom:0;">
+      <span class="principle-label">Principle 04</span>
+      <div class="principle-title">Have fun</div>
+      <div class="principle-grid">
+        <div class="p-card">
+          <div class="p-card-head">
+            <div class="p-placeholder">SS</div>
+            <div><div class="p-card-name">Samantha Smith</div><div class="p-card-meta">Consultant · Mariners Project</div></div>
+          </div>
+          <p class="p-quote">"The Seattle trip was my favorite memory this semester. We had the best combination of hard work and fun. I loved getting to connect with my team on a deeper level."</p>
+        </div>
+        <div class="p-card">
+          <div class="p-card-head">
+            <div class="p-placeholder">MH</div>
+            <div><div class="p-card-name">Marcus Heppner</div><div class="p-card-meta">Consultant · Mariners Project</div></div>
+          </div>
+          <p class="p-quote">"Watching the Mariners game at T-Mobile Park and trying a Seattle Dog for the first time — that was the favorite memory of the semester."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S4: STUDENT REFLECTIONS -->
+<section class="slide bg-navy" id="s4">
+  <div class="slide-inner">
+    <span class="eyebrow">Student Reflections</span>
+    <h2 class="section-title" style="margin-bottom:.5rem;">In Their Own Words</h2>
+    <p class="lead" style="margin-bottom:3.5rem;">Each student came to Seattle having spent a full semester working on your behalf. Here is what they want you to know.</p>
+
+    <div style="display:flex;flex-direction:column;gap:3.5rem;">
+
+      <div class="student-card">
+        <div class="headshot-placeholder">MH</div>
+        <div>
+          <div class="student-name">Marcus Heppner</div>
+          <div class="student-meta">Consultant · Mariners Project</div>
+          <div class="pull-quote">"Thank you Frances, Brooke, and the rest of the Mariners team for your feedback and support during both the semester and our presentations. And thanks again for accommodating our team at T-Mobile Park. It was a career and life-defining experience for my teammates and I, and we appreciate the time you spent organizing it for us."
+            <div class="quote-attr">Message to the Mariners Team</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="student-divider">
+
+      <div class="student-card">
+        <div class="headshot-placeholder">TB</div>
+        <div>
+          <div class="student-name">Thomas Banzhof</div>
+          <div class="student-meta">Consultant · Mariners Project</div>
+          <div class="pull-quote">"Jay, thank you for pushing us to be better. Our project was tough and our output had a lot of flaws that we overlooked. I'm glad you felt comfortable enough to correct us and make sure we gave you what you needed. This project pushed me out of my comfort zone in the best way possible. I hope this is something you pursue and I hope our research is helpful to you."
+            <div class="quote-attr">Message to the Mariners Team</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="student-divider">
+
+      <div class="student-card">
+        <div class="headshot-placeholder">SS</div>
+        <div>
+          <div class="student-name">Samantha Smith</div>
+          <div class="student-meta">Consultant · Mariners Project</div>
+          <div class="pull-quote">"Thank you so much for your time and feedback throughout this semester. We had the best time working together and for an amazing organization. I loved getting to connect with my team on a deeper level, and the Seattle trip gave us the best combination of hard work and genuine fun."
+            <div class="quote-attr">End of Semester Reflection</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="student-divider">
+
+      <div class="student-card">
+        <div class="headshot-placeholder">CA</div>
+        <div>
+          <div class="student-name">Cameron Ames</div>
+          <div class="student-meta">Consultant · Mariners Project</div>
+          <div class="pull-quote">"Thank you for trusting in us and allowing us to give our perspective and insight to your challenge. It was fun to be able to be creative in our research and the activations we came up with. I'm grateful for the opportunity to work on a real problem for an organization that means a lot to this region."
+            <div class="quote-attr">Message to the Mariners Team</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="student-divider">
+
+      <div class="student-card">
+        <div class="headshot-placeholder">KB</div>
+        <div>
+          <div class="student-name">Kenzie Bushnell</div>
+          <div class="student-meta">Consultant · Mariners Project</div>
+          <div class="pull-quote">"Thank you for giving us constructive feedback — knowing that is what it is like in the workforce. I feel like this experience helped me see how the real world is going to be: learning to work with a group of people I had never worked with before, presenting, and getting feedback that actually matters."
+            <div class="quote-attr">Message to the Mariners Team</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Eamon — no reflection submitted -->
+    <p style="font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:3rem;margin-bottom:1rem;">Also on the trip</p>
+    <div class="mini-row">
+      <div class="mini-card">
+        <div class="mini-placeholder">E</div>
+        <div>
+          <div class="mini-name">Eamon</div>
+          <div class="mini-sub">Consultant · Mariners Project</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S5: CLOSING -->
+<section class="slide bg-red" id="s5">
+  <div class="slide-inner">
+    <div class="closing-rule"></div>
+    <span class="eyebrow">Gonzaga Sports Consulting Group</span>
+    <h2 class="section-title" style="max-width:700px;">Thank you for giving our students something real to work on — and real people to work for.</h2>
+    <p class="lead" style="margin-top:1.75rem;">The access you provided, the feedback you gave, and the afternoon at T-Mobile Park made this more than a class project. It gave each of these students a story they will tell for years. We are excited to explore the potential to work together again.</p>
+    <div class="closing-footer">Spring 2026 &nbsp;·&nbsp; GSCG Seattle Team &nbsp;·&nbsp; Gonzaga University</div>
+  </div>
+</section>
+
+<script>
+  const sections = document.querySelectorAll('.slide');
+  const nav = document.getElementById('nav');
+  sections.forEach((s, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'nav-dot' + (s.classList.contains('bg-white') || s.classList.contains('bg-accent') ? ' dark' : '');
+    dot.title = 'Section ' + (i + 1);
+    dot.onclick = () => s.scrollIntoView({ behavior: 'smooth' });
+    nav.appendChild(dot);
+  });
+  const dots = nav.querySelectorAll('.nav-dot');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const i = [...sections].indexOf(e.target);
+        dots.forEach((d, j) => d.classList.toggle('active', i === j));
+      }
+    });
+  }, { threshold: 0.4 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
