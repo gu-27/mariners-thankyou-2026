@@ -52,10 +52,9 @@
   .bg-accent .pull-quote { border-left-color: var(--red); color: #3a4556; }
   .quote-attr { font-family: 'Outfit', sans-serif; font-size: .78rem; font-style: normal; font-weight: 600; letter-spacing: .05em; opacity: .55; margin-top: .5rem; }
 
-  /* Photo grid */
-  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; gap: .75rem; margin-top: 2.5rem; max-width: 900px; }
-  .photo-grid img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; display: block; }
-  .photo-wide { grid-column: span 2; }
+  /* Photo gallery */
+  .photo-gallery { columns: 3; column-gap: .75rem; margin-top: 2.5rem; max-width: 960px; }
+  .photo-gallery img { width: 100%; display: block; border-radius: 12px; margin-bottom: .75rem; break-inside: avoid; }
 
   /* Student card */
   .student-card { display: flex; align-items: flex-start; gap: 3rem; max-width: 900px; }
@@ -80,8 +79,7 @@
     .student-card { flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
     .pull-quote { border-left: none; border-top: 3px solid rgba(255,255,255,.3); padding-left: 0; padding-top: 1rem; }
     .bg-accent .pull-quote { border-top-color: var(--red); }
-    .photo-grid { grid-template-columns: 1fr; }
-    .photo-main, .photo-sub { height: 260px; }
+    .photo-gallery { columns: 2; }
     .principles-list { flex-direction: column; gap: .5rem; }
   }
 </style>
@@ -111,11 +109,19 @@
     <span class="eyebrow">The Experience</span>
     <h2 class="section-title">Moments That Mattered</h2>
     <p class="lead" style="margin-top:.75rem;">From Lumen Field to T-Mobile Park — two days in Seattle that are hard to put into words, and impossible to forget.</p>
-    <div class="photo-grid">
-      <img class="photo-wide" src="img/events/IMG_6125.jpeg" alt="T-Mobile Park field view">
-      <img src="img/events/IMG_6161.jpeg" alt="GSCG at the game">
-      <img src="img/events/IMG_6066.jpeg" alt="Rooftop meeting with Seattle skyline">
-      <img class="photo-wide" src="img/events/IMG_6080.jpeg" alt="Mariners mascot moment">
+    <div class="photo-gallery">
+      <img src="img/events/gscg-mariners-presentation.jpeg" alt="GSCG x Mariners presentation">
+      <img src="img/events/panel-discussion.jpeg" alt="Mariners staff panel">
+      <img src="img/events/griffey-mural.jpeg" alt="Ken Griffey Jr. mural">
+      <img src="img/events/field-view.jpeg" alt="T-Mobile Park field view">
+      <img src="img/events/rooftop-meeting.jpeg" alt="Rooftop meeting with Seattle skyline">
+      <img src="img/events/on-the-field.jpeg" alt="On the field at T-Mobile Park">
+      <img src="img/events/outside-tmobile-park.jpeg" alt="Outside T-Mobile Park">
+      <img src="img/events/mariners-mascot.jpeg" alt="Mariners mascot">
+      <img src="img/events/dugout-visit.jpeg" alt="Dugout visit">
+      <img src="img/events/seats-selfie.jpeg" alt="In the seats">
+      <img src="img/events/field-level.jpeg" alt="Field level view">
+      <img src="img/events/at-the-game.jpeg" alt="At the game">
     </div>
   </div>
 </section>
